@@ -44,7 +44,9 @@ function attach(gulp, options) {
 		'lr:wrapPackageModules',
 	]);
 
-	gulp.task(task, ['lr:all']);
+	if (task) {
+		gulp.task(task, ['lr:all']);
+	}
 }
 
 module.exports = {
