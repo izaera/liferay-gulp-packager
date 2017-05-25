@@ -9,20 +9,18 @@
   "author": "ivan.zaera@liferay.com",
   "license": "LGPL-3.0",
   "dependencies": {
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.23.0",
-    "bluebird": "^3.5.0",
-    "builtin-modules": "^1.1.1",
     "decomment": "^0.8.7",
+    "esprima": "^3.1.3",
+    "estraverse": "^4.2.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-ignore": "^2.0.2",
     "gulp-sourcemaps": "^2.5.1",
+    "merge-stream": "^1.0.1",
     "path": "^0.12.7",
     "read-json-sync": "^1.1.1",
-    "read-package-json": "^2.0.5",
-    "readable-stream": "^2.2.6",
     "replacestream": "^4.0.2",
     "resolve": "^1.3.2"
   }

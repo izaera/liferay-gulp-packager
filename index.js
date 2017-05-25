@@ -4,8 +4,8 @@ var copyPackageJson = require('./lib/copy-package-json.js');
 var transpileProject = require('./lib/transpile-project.js');
 var nameProjectModules = require('./lib/name-project-modules.js');
 var copyPackages = require('./lib/copy-packages.js');
-var shimServerModules = require('./lib/shim-server-modules.js');
-var shimGlobals = require('./lib/shim-globals.js');
+var shimNodeGlobals = require('./lib/shim-node-globals.js');
+var shimNodeModules = require('./lib/shim-node-modules.js');
 var wrapPackageModules = require('./lib/wrap-package-modules.js');
 
 function attach(gulp, options) {
@@ -24,13 +24,13 @@ function attach(gulp, options) {
 	gulp.task('lr:copyPackages', function() {
 		return copyPackages(options);
 	});
-	gulp.task('lr:shimServerModules', ['lr:copyPackages'], function() {
-		return shimServerModules(options);
+	gulp.task('lr:shimNodeGlobals', ['lr:copyPackages'], function() {
+		return shimNodeGlobals(options);
 	});
-	gulp.task('lr:shimGlobals', ['lr:shimServerModules'], function() {
-		return shimGlobals(options);
+	gulp.task('lr:shimNodeModules', ['lr:shimNodeGlobals'], function() {
+		return shimNodeModules(options);
 	});
-	gulp.task('lr:wrapPackageModules', ['lr:shimGlobals'], function() {
+	gulp.task('lr:wrapPackageModules', ['lr:shimNodeModules'], function() {
 		return wrapPackageModules(options);
 	});
 
@@ -39,8 +39,8 @@ function attach(gulp, options) {
 		'lr:transpileProject',
 		'lr:nameProjectModules',
 		'lr:copyPackages',
-		'lr:shimServerModules',
-		'lr:shimGlobals',
+		'lr:shimNodeGlobals',
+		'lr:shimNodeModules',
 		'lr:wrapPackageModules',
 	]);
 
