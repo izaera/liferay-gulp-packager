@@ -4,6 +4,9 @@ var copyPackageJson = require('./lib/copy-package-json.js');
 var transpileProject = require('./lib/transpile-project.js');
 var nameProjectModules = require('./lib/name-project-modules.js');
 var copyPackages = require('./lib/copy-packages.js');
+var rewriteBrowserMains = require('./lib/rewrite-browser-mains.js');
+var normalizeRequires = require('./lib/normalize-requires.js');
+var rewriteBrowserRequires = require('./lib/rewrite-browser-requires.js');
 var shimNodeGlobals = require('./lib/shim-node-globals.js');
 var shimNodeModules = require('./lib/shim-node-modules.js');
 var wrapPackageModules = require('./lib/wrap-package-modules.js');
@@ -24,7 +27,16 @@ function attach(gulp, options) {
 	gulp.task('lr:copyPackages', function() {
 		return copyPackages(options);
 	});
-	gulp.task('lr:shimNodeGlobals', ['lr:copyPackages'], function() {
+	gulp.task('lr:rewriteBrowserMains', ['lr:copyPackages'], function() {
+		return rewriteBrowserMains(options);
+	});
+	gulp.task('lr:normalizeRequires', ['lr:rewriteBrowserMains'], function() {
+		return normalizeRequires(options);
+	});
+	gulp.task('lr:rewriteBrowserRequires', ['lr:normalizeRequires'], function() {
+		return rewriteBrowserRequires(options);
+	});
+	gulp.task('lr:shimNodeGlobals', ['lr:rewriteBrowserRequires'], function() {
 		return shimNodeGlobals(options);
 	});
 	gulp.task('lr:shimNodeModules', ['lr:shimNodeGlobals'], function() {
@@ -39,6 +51,8 @@ function attach(gulp, options) {
 		'lr:transpileProject',
 		'lr:nameProjectModules',
 		'lr:copyPackages',
+		'lr:rewriteBrowserMains',
+		'lr:rewriteBrowserRequires',
 		'lr:shimNodeGlobals',
 		'lr:shimNodeModules',
 		'lr:wrapPackageModules',
