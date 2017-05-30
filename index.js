@@ -5,6 +5,7 @@ var transpileProject = require('./lib/transpile-project.js');
 var nameProjectModules = require('./lib/name-project-modules.js');
 var copyPackages = require('./lib/copy-packages.js');
 var rewriteBrowserMains = require('./lib/rewrite-browser-mains.js');
+var replaceBrowserModules = require('./lib/replace-browser-modules.js');
 var normalizeRequires = require('./lib/normalize-requires.js');
 var rewriteBrowserRequires = require('./lib/rewrite-browser-requires.js');
 var shimNodeGlobals = require('./lib/shim-node-globals.js');
@@ -30,7 +31,10 @@ function attach(gulp, options) {
 	gulp.task('lr:rewriteBrowserMains', ['lr:copyPackages'], function() {
 		return rewriteBrowserMains(options);
 	});
-	gulp.task('lr:normalizeRequires', ['lr:rewriteBrowserMains'], function() {
+	gulp.task('lr:replaceBrowserModules', ['lr:rewriteBrowserMains'], function() {
+		return replaceBrowserModules(options);
+	});
+	gulp.task('lr:normalizeRequires', ['lr:replaceBrowserModules'], function() {
 		return normalizeRequires(options);
 	});
 	gulp.task('lr:rewriteBrowserRequires', ['lr:normalizeRequires'], function() {
@@ -52,6 +56,8 @@ function attach(gulp, options) {
 		'lr:nameProjectModules',
 		'lr:copyPackages',
 		'lr:rewriteBrowserMains',
+		'lr:replaceBrowserModules',
+		'lr:normalizeRequires',
 		'lr:rewriteBrowserRequires',
 		'lr:shimNodeGlobals',
 		'lr:shimNodeModules',
