@@ -4,12 +4,13 @@ var copyPackageJson = require('./lib/copy-package-json.js');
 var transpileProject = require('./lib/transpile-project.js');
 var nameProjectModules = require('./lib/name-project-modules.js');
 var copyPackages = require('./lib/copy-packages.js');
-var rewriteBrowserMains = require('./lib/rewrite-browser-mains.js');
-var replaceBrowserModules = require('./lib/replace-browser-modules.js');
+// TODO: intentar mover los ficheros browser encima de los server (en ambos casos)
+var rewriteBrowserMains = require('./lib/rewrite-browser-mains.js'); // iso
+var replaceBrowserModules = require('./lib/replace-browser-modules.js'); // iso
 var normalizeRequires = require('./lib/normalize-requires.js');
-var rewriteBrowserRequires = require('./lib/rewrite-browser-requires.js');
-var shimNodeGlobals = require('./lib/shim-node-globals.js');
-var shimNodeModules = require('./lib/shim-node-modules.js');
+var rewriteBrowserRequires = require('./lib/rewrite-browser-requires.js'); // iso
+var shimNodeGlobals = require('./lib/shim-node-globals.js'); // iso
+var shimNodeModules = require('./lib/shim-node-modules.js'); // iso
 var wrapPackageModules = require('./lib/wrap-package-modules.js');
 
 function attach(gulp, options) {
