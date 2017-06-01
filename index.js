@@ -4,8 +4,7 @@ var copyPackageJson = require('./lib/copy-package-json.js');
 var transpileProject = require('./lib/transpile-project.js');
 var nameProjectModules = require('./lib/name-project-modules.js');
 var copyPackages = require('./lib/copy-packages.js');
-// TODO: intentar mover los ficheros browser encima de los server (en ambos casos)
-var rewriteBrowserMains = require('./lib/rewrite-browser-mains.js'); // iso
+var replaceBrowserMains = require('./lib/replace-browser-mains.js'); // iso
 var replaceBrowserModules = require('./lib/replace-browser-modules.js'); // iso
 var normalizeRequires = require('./lib/normalize-requires.js');
 var rewriteBrowserRequires = require('./lib/rewrite-browser-requires.js'); // iso
@@ -29,10 +28,10 @@ function attach(gulp, options) {
 	gulp.task('lr:copyPackages', function() {
 		return copyPackages(options);
 	});
-	gulp.task('lr:rewriteBrowserMains', ['lr:copyPackages'], function() {
-		return rewriteBrowserMains(options);
+	gulp.task('lr:replaceBrowserMains', ['lr:copyPackages'], function() {
+		return replaceBrowserMains(options);
 	});
-	gulp.task('lr:replaceBrowserModules', ['lr:rewriteBrowserMains'], function() {
+	gulp.task('lr:replaceBrowserModules', ['lr:replaceBrowserMains'], function() {
 		return replaceBrowserModules(options);
 	});
 	gulp.task('lr:normalizeRequires', ['lr:replaceBrowserModules'], function() {
@@ -56,7 +55,7 @@ function attach(gulp, options) {
 		'lr:transpileProject',
 		'lr:nameProjectModules',
 		'lr:copyPackages',
-		'lr:rewriteBrowserMains',
+		'lr:replaceBrowserMains',
 		'lr:replaceBrowserModules',
 		'lr:normalizeRequires',
 		'lr:rewriteBrowserRequires',
